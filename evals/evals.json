@@ -1,0 +1,19 @@
+{
+  "skill_name": "readme-master",
+  "evals": [
+    {
+      "id": 0,
+      "eval_name": "config-repo-chinese",
+      "prompt": "帮我美化这个项目的 README,现在太简陋了。这是一个给 Claude Code 用的多 Agent 编排配置包(纯配置文件,没有可运行的 UI)。要求:看起来专业、有视觉层次,并且别人的 AI agent 只读 README 就能完成部署,零人工干预。直接修改项目里的 README.md。",
+      "expected_output": "重构后的中文 README:含架构 Mermaid 图(无 UI 项目的生成式视觉分支)、保留原决策记录表和证据来源、安装区块符合 agent-deploy 规范并经过验证、不虚构徽章/星数",
+      "files": ["fixtures/right-model-right-job"]
+    },
+    {
+      "id": 1,
+      "eval_name": "web-screenshots",
+      "prompt": "my side project needs a decent README before I put it on github. it's a static html color palette generator (just open index.html). can you make the readme look professional — with actual screenshots of the UI — and complete setup/usage instructions?",
+      "expected_output": "英文 README:含真实截图(shot-scraper/Playwright 截取本地 HTML)、截图脚本一并提交(截图即代码)、badges 真实、quick start 可复制执行",
+      "files": ["fixtures/palette-gen"]
+    }
+  ]
+}
