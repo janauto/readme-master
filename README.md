@@ -4,6 +4,8 @@
 [![Runtime](https://img.shields.io/badge/runtime-zero%20required-2ea44f.svg)](#how-it-works)
 [![Works with](https://img.shields.io/badge/works%20with-Claude%20Code%20%C2%B7%20Cowork-blue.svg)](#install)
 
+**English** · [中文说明](./README_CN.md)
+
 An agent skill that rewrites a project's README to top-tier open-source quality — real screenshots or GIF demos when the project can run, GitHub-native Mermaid diagrams when it can't — and then **verifies the result by having a fresh agent deploy the project from the README text alone**. Zero human intervention is the pass condition, not a slogan.
 
 ```mermaid
@@ -62,9 +64,7 @@ Expected output: INSTALL_OK. No credentials required. Idempotent. -->
 
 Benchmarked against a no-skill baseline on two projects (a Chinese config package and a static web app): assertion pass rate **92% vs 58%**, with fewer tokens and half the wall-clock time on the web case. The gap comes from exactly what the references enforce: capture recipes committed with images, smoke tests with expected output, no links to files that don't exist, and actual deploy verification instead of claimed verification.
 
-## 中文说明
-
-给任意项目重写 README:有 UI 就真实运行截图,纯配置/库项目用 GitHub 原生 Mermaid 图;安装区块按"机器可执行"规范撰写,最后派一个只读 README 的全新 agent 从零走一遍部署来验证——改到零人工干预跑通为止。安装后直接说"美化某某项目的 README"即可触发。
+> Looking for the Chinese version? See **[README_CN.md](./README_CN.md)**.
 
 ## License
 
