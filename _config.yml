@@ -1,0 +1,6 @@
+title: readme-master
+description: >-
+  Turn any repo's README into a front page agents can deploy from — real
+  screenshots or Mermaid fallbacks, install docs verified by a fresh agent.
+theme: jekyll-theme-cayman
+show_downloads: false
