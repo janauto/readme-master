@@ -147,3 +147,66 @@ In order, each only if applicable: Contributing → License → Acknowledgments 
 - A gallery of empty-state screenshots.
 - Doc-index links to files that don't exist ("coming soon" tables).
 - Centered `<p>` blocks overused — one nav bar, maybe one hero caption; not every paragraph.
+
+## Chinese README patterns (中文 README 写法)
+
+When the target language is Chinese, adapt all section patterns to natural Chinese. The full language quality rules are in `SKILL.md` under "Chinese output quality" — this section provides the section-level templates.
+
+### Title
+
+```markdown
+# 项目名 — 一句话说清这个项目能帮用户做什么
+```
+
+Focus on the **outcome for the user**, not the technical implementation. Example: "AI 自动生成可编辑的 PPTX" beats "基于 SVG 解析的 Python 工具".
+
+### Feature bullets
+
+Use parallel structure with bold lead-ins. Each bullet is a **complete, concise thought** — do not try to pack two ideas into one bullet:
+
+```markdown
+- **标准化结构** — 按 badge → 价值主张 → 导航 → 截图 → 快速开始 → 页脚的顺序组织内容
+- **多级视觉方案** — 优先截取真实界面，工具缺失时自动降级为 Mermaid 图
+- **截图即代码** — 每张截图附带生成脚本，项目变动后可一键重新生成
+```
+
+### Quick Start section
+
+```markdown
+## 快速开始
+
+### 1. 环境要求
+
+| 依赖 | 是否必需 | 用途 |
+|---|:---:|---|
+| Python 3.10+ | ✅ | 核心运行时 |
+
+<details>
+<summary><strong>Windows</strong> — 详细步骤</summary>
+...
+</details>
+
+<details>
+<summary><strong>macOS / Linux</strong></summary>
+...
+</details>
+
+### 2. 安装
+### 3. 首次运行
+```
+
+### Footer
+
+```markdown
+## 贡献与许可证
+
+欢迎提 issue 和 PR。本项目采用 [MIT 许可证](./LICENSE)。
+
+[⬆ 回到顶部](#项目名)
+```
+
+### Chinese-specific anti-patterns
+
+- **翻译腔 (translationese)**: text that reads like English with Chinese characters. Signs: long compound sentences joined by dashes/semicolons, literal translations like 优雅降级/捕获/配方, excessive passive voice (被……所……).
+- **Register mixing (语体混乱)**: swinging between 口语 (就上、瞎试、搞定) and 书面语 (显式、不具区分度) in the same paragraph. Pick a consistent register.
+- **Unnecessary English**: use Chinese for words with natural equivalents (截图 not capture, 脚本 not recipe, 结构 not anatomy). Keep English only for standard technical terms (API, Git, CI/CD, badge).

@@ -1,6 +1,6 @@
 <a name="中文"></a>
 
-# readme-master — 把任意仓库的 README 变成 agent 能照着部署的项目主页
+# readme-master — 让任何项目的 README 变成 agent 能直接照做部署的首页
 
 [![Skill](https://img.shields.io/badge/type-Claude%20skill-D97757.svg)](#安装)
 [![Runtime](https://img.shields.io/badge/runtime-zero%20required-2ea44f.svg)](#工作原理)
@@ -16,57 +16,57 @@
   <a href="#工作原理"><strong>工作原理</strong></a>
 </p>
 
-一个 agent 技能,把项目的 README 重写到顶级开源水准——项目能跑就上真实截图或 GIF 演示,不能跑就用 GitHub 原生的 Mermaid 图——然后**派一个全新的 agent 仅凭 README 文本从零部署项目,以此验证成果**。「零人工干预」是通过条件,不是一句口号。
+一款 Claude 技能，将项目 README 重写为顶级开源项目的水准。能运行的项目直接截取真实界面或录制 GIF 演示；无法运行的则用 GitHub 原生 Mermaid 图兜底。最后，**让一个全新 agent 只凭 README 内容从零部署项目，以此验证文档是否真正可执行**。这里说的「零人工干预」是验收条件，不是一句口号。
 
 <p align="center">
-  <img src="docs/assets/readme-before-after.png" width="100%" alt="palette-gen 仓库的 README 在 readme-master 运行前后的对比:运行前只有两行、没有徽章/视觉/安装步骤/冒烟测试;运行后有 emoji 标题、三个真实徽章、居中导航、两张并排的真实 UI 截图、功能列表,以及以带预期输出的冒烟测试收尾的可复制 Quick Start。这是项目自身基准测试的真实产出。" />
+  <img src="docs/assets/readme-before-after.png" width="100%" alt="palette-gen 仓库 README 的前后对比：改前只有两行，无 badge、无截图、无安装步骤、无冒烟测试；改后包含 emoji 标题、三个真实 badge、居中导航栏、两张并排 UI 截图、功能列表，以及带预期输出的可复制快速开始。这是项目自身基准测试的实际产出。" />
   <br/>
-  <sub><b>readme-master 在自己的基准测试上</b> —— 一个 2 行的 README(左)被重写成可部署的项目主页(右)。真实产出、真实 UI 截图,由 <a href="./docs/assets/capture.py"><code>docs/assets/capture.py</code></a> 重新生成。(基准案例项目本身是英文的,截图与引用文字保留原文,未做翻译改写,以免虚构一个从未真实生成过的中文版本。)</sub>
+  <sub><b>readme-master 自身的基准测试</b> —— 一份只有 2 行的 README（左）被重写为可部署的项目首页（右）。均为真实产出和真实 UI 截图，由 <a href="./docs/assets/capture.py"><code>docs/assets/capture.py</code></a> 生成。（基准案例项目本身是英文项目，截图和引用文字保留英文原文，以免凭空编造一个不存在的中文版本。）</sub>
 </p>
 
 ```mermaid
 flowchart LR
-    A[Phase 0<br/>环境探测] --> B[Phase 1<br/>项目分析]
+    A[Phase 0<br/>环境检测] --> B[Phase 1<br/>项目分析]
     B --> C{Phase 2 视觉素材}
-    C -->|Web UI| C1[运行项目<br/>真实截图/GIF]
-    C -->|CLI| C2[vhs .tape<br/>终端演示]
+    C -->|Web UI| C1[运行项目<br/>截取真实界面/GIF]
+    C -->|CLI| C2[vhs .tape<br/>终端录屏]
     C -->|库/配置包| C3[Mermaid 架构图<br/>零依赖]
-    C1 & C2 & C3 --> D[Phase 3<br/>按解剖模板重构 README]
-    D --> E[Phase 4<br/>全新 agent 仅凭 README<br/>从零部署验证]
-    E -->|失败回写 ≤3轮| D
-    E -->|通过| F[Phase 5<br/>diff 确认交付]
+    C1 & C2 & C3 --> D[Phase 3<br/>按标准模板重写 README]
+    D --> E[Phase 4<br/>全新 agent 只凭 README<br/>从零部署验证]
+    E -->|失败则修正，最多 3 轮| D
+    E -->|通过| F[Phase 5<br/>确认差异并交付]
 ```
 
 ## 功能
 
-- **README 解剖结构** — badges → 价值主张 → 居中导航 → 视觉展示 → 对比表格 → 可折叠的分平台快速开始 → 文档索引 → 页脚。整体结构对标顶级开源项目主页。
-- **分级降级的视觉素材** — 优先尝试真实捕获(web 用 shot-scraper/Playwright,终端用 vhs),缺工具时优雅降级到 Mermaid 图;任何一个工具缺失都不会中断流程。
-- **截图即代码** — 每张图都随附生成它的 `.tape`/`shots.yml` 配方,项目变化后视觉素材可一键重新生成。(上面这张主图本身就是这么做出来的,见 [`docs/assets/`](./docs/assets/)。)
-- **agent 部署验证** — 一个全新的子 agent 只拿到 README 和一个干净目录;它每一处靠猜的地方,都会被写回文档修正。
-- **诚实约束** — 不伪造 badge、star 数、功能、赞助方或链接;原 README 的实质内容(决策、注意事项、证据、表格)必须在重写后保留。
+- **标准化结构** — 按 badge → 价值主张 → 居中导航 → 视觉展示 → 对比表格 → 分平台快速开始（可折叠）→ 文档索引 → 页脚的顺序组织内容，对标顶级开源项目首页。
+- **多级视觉方案** — 优先截取真实界面（Web 项目用 shot-scraper/Playwright，终端项目用 vhs），工具缺失时自动降级为 Mermaid 图，任何环节都不会卡住流程。
+- **截图即代码** — 每张截图都附带生成它的 `.tape` / `shots.yml` 脚本，项目有变动时可一键重新生成。（上面的主图就是这么生成的，见 [`docs/assets/`](./docs/assets/)。）
+- **agent 部署验证** — 将新写的 README 和一个空目录交给全新子 agent；凡是它靠猜才能继续的地方，都会写回文档加以修正。
+- **诚实原则** — 不伪造 badge、star 数、功能、赞助商或链接；原 README 中的实质内容（决策、注意事项、数据、表格）在重写后必须保留。
 
 ## 效果验证
 
-在两个项目上与「无技能」基线做了基准测试——一个中文多 agent 配置包和一个静态网页应用,每种配置跑 3 次([`evals/`](./evals/evals.json)):
+在两个项目上做了对比测试——一个中文多 agent 配置包和一个静态网页应用，分别在有/无技能的条件下各跑 3 次（[`evals/`](./evals/evals.json)）：
 
 | 指标 | 基线 | 用 readme-master |
 |---|:---:|:---:|
 | **断言通过率** | 58% | **92%** |
 
-平均值掩盖了价值所在。配置包案例两组都是 7/7——那个 prompt 本身就把「agent 零干预部署」写成了显式要求,不具区分度。真正体现参考文档价值的是网页应用案例。一个全新 agent 仅凭各自的 README 从零部署:
+光看平均值看不出差异。配置包案例两组都是 7/7——因为那个 prompt 本身就明确要求了「agent 零干预部署」，没有区分度。真正能体现技能价值的是网页应用案例。让一个全新 agent 分别只凭两份 README 从零部署：
 
 | 检查项 —— 全新 agent 部署网页应用 README | 基线 | 用技能 |
 |---|:---:|:---:|
-| 截图真实且图片文件实际存在 | ✅ | ✅ |
-| 生成截图的配方与图片一并提交 | ❌ | ✅ |
-| 含冒烟测试及预期输出 | ❌ | ✅ |
-| 不链接到不存在的文件(如 `LICENSE`) | ❌ | ✅ |
-| 由**全新** agent 验证部署,而非自己声称 | ❌ | ✅ |
+| 截图真实且图片文件确实存在 | ✅ | ✅ |
+| 截图脚本与图片一同提交 | ❌ | ✅ |
+| 包含冒烟测试及预期输出 | ❌ | ✅ |
+| 不链接不存在的文件（如 `LICENSE`） | ❌ | ✅ |
+| 由**全新** agent 验证部署，而非自说自话 | ❌ | ✅ |
 | 命令中无未解释的占位符 | ❌ | ❌ |
 
-这个用例下技能还**省了约一半时间、约 25% 的 token**——结构化决策树胜过瞎试。最后一行很诚实:在一个未发布的仓库上,技能仍留下了 `<this-repo-url>` 占位符——这是它自订规范里的一处缺口,被基准测试抓到了,也是下一版的修复候选。其余每一项,都正是三个参考文档所强制的。
+在这个案例中，使用技能还**节省了约一半时间和约 25% 的 token**——靠决策树走比盲目尝试高效得多。最后一行值得注意：即使有技能加持，在未发布的仓库上仍然留下了 `<this-repo-url>` 占位符——说明技能自身的规范还有漏洞，已被测试发现，列入下一版修复计划。其余各项的通过，都归功于三份参考文档的约束。
 
-<sub>这些测试跑在一个封锁的沙箱里,技能首选的捕获工具全都装不了(pip/npm 不可用),两组都是靠迂回手段才拿到真实截图;因此时间/token 数据波动很大,并低估了正常机器上的工具路径。</sub>
+<sub>测试在受限沙箱中运行，技能首选的截图工具均无法安装（pip/npm 不可用），两组都是绕道才拿到真实截图，因此时间和 token 数据波动较大，实际在正常环境中效果会更好。</sub>
 
 ## 安装
 
@@ -90,13 +90,13 @@ cp -r readme-master ~/.claude/skills/readme-master
 </td></tr>
 </table>
 
-**验证** —— 让 Claude「美化 xxx 项目的 README」或「beautify the README of ./my-project」,技能应当宣布它的五阶段工作流。Claude Code 下还可以确认文件已就位:
+**验证** —— 让 Claude「美化 xxx 项目的 README」或「beautify the README of ./my-project」，技能会提示进入五阶段工作流。也可以在 Claude Code 中确认文件已就位：
 
 ```bash
 test -f ~/.claude/skills/readme-master/SKILL.md && echo INSTALL_OK   # → INSTALL_OK
 ```
 
-核心流程无需任何 Python 依赖。可选的捕获工具能抬高视觉上限(缺了也会优雅降级):
+核心流程无需安装任何 Python 依赖。以下可选工具能提升截图质量（没装也不影响使用）：
 
 ```bash
 pip install shot-scraper && shot-scraper install   # 网页截图
@@ -109,22 +109,22 @@ git clone https://github.com/janauto/readme-master.git && mkdir -p ~/.claude/ski
 
 ## 工作原理
 
-技能 = 提示词 + 参考文件,没有需要安装的运行时。每个阶段只在需要的那一刻读取对应的一份参考:
+技能 = 提示词 + 参考文件，无需安装任何运行时。每个阶段在需要时才读取对应的参考文件：
 
 | 文件 | 作用 |
 |---|---|
 | [`SKILL.md`](./SKILL.md) | 五阶段工作流 + 核心原则 |
-| [`references/readme-anatomy.md`](./references/readme-anatomy.md) | 逐节的 README 模板,含代码片段与反面案例 |
-| [`references/visual-capture.md`](./references/visual-capture.md) | 捕获决策树:Web/CLI/库 三条分支与降级层级 |
-| [`references/agent-deploy-spec.md`](./references/agent-deploy-spec.md) | 机器可执行的安装规范 + 对抗式验证协议 |
-| [`scripts/detect_env.sh`](./scripts/detect_env.sh) | 报告本机可用的捕获工具 |
-| [`scripts/capture_web.py`](./scripts/capture_web.py) | 截图助手:优先 shot-scraper,回退 Playwright |
+| [`references/readme-anatomy.md`](./references/readme-anatomy.md) | README 各节模板，含代码示例与常见错误 |
+| [`references/visual-capture.md`](./references/visual-capture.md) | 截图方案决策树：Web / CLI / 库三条路径及降级策略 |
+| [`references/agent-deploy-spec.md`](./references/agent-deploy-spec.md) | 可直接执行的安装规范 + 自动化验证流程 |
+| [`scripts/detect_env.sh`](./scripts/detect_env.sh) | 检测本机可用的截图工具 |
+| [`scripts/capture_web.py`](./scripts/capture_web.py) | 截图辅助脚本：优先用 shot-scraper，备选 Playwright |
 
-**通过条件**(Phase 4):把一个全新子 agent 只交给新写的 README 文本和一个干净目录,让它跑到「能装成功」,并汇报每一处靠猜的地方。每个缺口都被写回文档;循环最多 3 轮,或直到干净通过为止。这一步才把「看起来专业」变成「agent 真的能部署」。
+**通过条件**（Phase 4）：将新写的 README 和一个空目录交给全新子 agent，让它从零完成安装，并记录所有靠猜才能继续的环节。发现的问题会逐一修正回文档，最多循环 3 轮，直到完全通过。这一步的意义在于将「看着专业」变成「agent 真能照做」。
 
 ## 贡献与许可证
 
-欢迎提 issue 和 PR——最有价值的贡献是往 [`evals/`](./evals/evals.json) 里加一个新 fixture,去压测现有参考文档还覆盖得不够好的项目类型。以 [MIT 许可证](./LICENSE) 发布。
+欢迎提 issue 和 PR——最有价值的贡献是在 [`evals/`](./evals/evals.json) 中新增测试用例，帮助发现参考文档尚未覆盖的项目类型。本项目采用 [MIT 许可证](./LICENSE)。
 
 <p align="right"><a href="#中文">⬆ 回到顶部</a></p>
 

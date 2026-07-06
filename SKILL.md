@@ -23,6 +23,43 @@ Scope is the README and its assets. Do not create a full docs suite; link to fil
 - **Degrade, don't block.** Every capture tool can be missing; every project can fail to run. Each failure lowers the visual ceiling, never halts the workflow. The decision tree in `references/visual-capture.md` defines the fallback at each step.
 - **The README is an API for agents.** Installation sections are consumed by AI agents as much as humans now. Commands must be copy-paste executable with no placeholders lacking defaults, and the section must end with a verifiable smoke test.
 
+## Chinese output quality (中文写作规范)
+
+When the project's README is in Chinese, or the user requests Chinese output, the generated text **must read naturally to a native Chinese speaker**. The single most common failure mode is 翻译腔 (translationese) — Chinese text that follows English syntax patterns.
+
+### Sentence structure
+
+- **Prefer short sentences.** Chinese readers expect frequent sentence breaks. Break English-style compound sentences (connected by dashes, semicolons, or relative clauses) into 2–3 shorter Chinese sentences.
+- **Lead with the topic.** Chinese uses topic-comment structure: "这一步的意义在于……" not "The significance of this step is…" mapped word-for-word.
+- **Use natural Chinese connectors**: 因此、所以、不过、此外、首先…然后…最后, rather than overusing dashes and semicolons for logical flow.
+
+### Word choice — common traps
+
+| English term | Bad (翻译腔) | Good (自然中文) |
+|---|---|---|
+| graceful degradation | 优雅降级 | 自动降级 / 兜底 |
+| capture (screenshots) | 捕获 | 截图 / 截取 |
+| recipe (build scripts) | 配方 | 脚本 / 配置文件 |
+| anatomy (structure) | 解剖 | 结构 / 模板 |
+| adversarial verification | 对抗式验证 | 交叉验证 / 自动化验证 |
+| pass condition | 通过条件 | 验收条件 / 通过标准 |
+| a/one X skill | 一个 X 技能 | 一款 X 技能 |
+| tiered fallback | 分级降级 | 多级兜底方案 |
+
+Keep English for terms with no natural Chinese equivalent: API, Git, CI/CD, badge, agent, token. Use Chinese for words that have well-known equivalents: 截图 not capture, 脚本 not recipe, 结构 not anatomy.
+
+### Register consistency
+
+Do not mix overly casual (口语) phrasing like 就上、瞎试、搞定 with formal academic terms like 显式要求、不具区分度 in the same paragraph. Pick one register and hold it. For README text, aim for **清晰的技术书面语** — professional but not stiff.
+
+### Punctuation
+
+Use Chinese punctuation throughout Chinese text: ，。！？；：""''（）——. Do not mix English commas/periods into Chinese sentences.
+
+### Quantifiers (量词)
+
+Use appropriate 量词: 一款技能、一份文档、一套方案、一张截图、一条命令. Never use 一个 as a universal quantifier.
+
 ## Workflow
 
 Work through five phases in order. Read the referenced file at the start of the phase that needs it — not before.
