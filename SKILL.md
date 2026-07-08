@@ -10,7 +10,7 @@ Turn any repository's README into the kind of front page that makes people star 
 ## What this skill produces
 
 1. A rewritten `README.md` (language follows the original project; bilingual `README_CN.md`/`README.md` pair only if the user asks).
-2. Visual assets in `docs/assets/` — real screenshots/GIFs when the project can run, generated diagrams when it can't.
+2. Visual assets in `docs/assets/` — real screenshots/GIFs when the project can run (optionally composited into one branded hero banner around the real screenshot — see `references/visual-capture.md`), generated diagrams when it can't.
 3. Capture scripts committed alongside the assets ("screenshots as code") so visuals can be regenerated after the project changes.
 4. A deploy-verification report: proof that a fresh agent, given only the README, completed installation.
 
@@ -18,7 +18,7 @@ Scope is the README and its assets. Do not create a full docs suite; link to fil
 
 ## Core principles
 
-- **Never invent facts.** No fake badges, fabricated star counts, imaginary features, sponsors, or links to nonexistent docs. Every claim in the new README must be traceable to the actual codebase or the original README. A beautiful lie is worse than a plain truth — maintainers lose trust in the whole document the moment they spot one invented detail.
+- **Never invent facts.** No fake badges, fabricated star counts, imaginary features, sponsors, or links to nonexistent docs. Every claim in the new README must be traceable to the actual codebase or the original README. A beautiful lie is worse than a plain truth — maintainers lose trust in the whole document the moment they spot one invented detail. This applies to generated visuals too: a composited hero banner may only frame a **real** captured screenshot, never an invented or mocked-up UI.
 - **Never lose facts.** The original README's substantive content (decisions, caveats, evidence, tables) must survive the rewrite, possibly restructured. Beautification that deletes information is vandalism.
 - **Degrade, don't block.** Every capture tool can be missing; every project can fail to run. Each failure lowers the visual ceiling, never halts the workflow. The decision tree in `references/visual-capture.md` defines the fallback at each step.
 - **The README is an API for agents.** Installation sections are consumed by AI agents as much as humans now. Commands must be copy-paste executable with no placeholders lacking defaults, and the section must end with a verifiable smoke test.
