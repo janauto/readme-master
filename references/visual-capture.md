@@ -41,6 +41,20 @@ Capture guidance: shoot the 2-4 screens that tell the product story (home/dashbo
 **Optional GIF** (only if ffmpeg present): record with Playwright video (`record_video_dir`), convert:
 `ffmpeg -i video.webm -vf "fps=10,scale=1200:-1:flags=lanczos" -loop 0 docs/assets/demo.gif`
 
+### Web UI — composited hero banner (optional enhancement)
+
+A raw screenshot dropped straight into the README sometimes undersells the product — no headline, no brand mark, easy to misread out of context, especially for a mobile-shaped screenshot that looks tiny and empty on a wide page. When the project has real UI worth showing off and a plain screenshot doesn't tell the story on its own, composite one instead of — not in addition to — the plain single hero:
+
+1. **Capture the real screenshot first** (the branch above). This is the only non-negotiable input: the device frame in the banner must show a **real** captured screenshot, never an invented or mocked-up UI. This is the same "never invent facts" rule as everywhere else in this skill, applied to generated visuals.
+2. **Author a small, self-contained HTML+CSS file** (`docs/assets/hero-src.html`) that lays out: the brand mark, a one-clause value-proposition headline (what the project does for whom — the same sentence that would open the README, see `readme-anatomy.md` §1), and the real screenshot embedded via `<img src="shot-x.png">` inside a device frame built from CSS (a phone notch + rounded rect for mobile/PWA, a simple browser-chrome bar for desktop web, or no frame at all — just the flat screenshot with a soft drop shadow — for anything that isn't literally a device screen). Pull the color palette from the project's actual logo/UI, not invented brand colors.
+3. **Render it** with `scripts/render_html.py docs/assets/hero-src.html docs/assets/cover.png --width 1600 --height 760 --scale 2`. Aim for a landscape ratio of roughly 2:1–2.4:1 for a full-width README hero: wide enough to sit above the fold without dominating the first scroll, tall enough to fit a device mockup at a readable size.
+4. **Compress before committing** — a banner this detailed easily renders at 2–3 MB. Run `scripts/compress_image.py docs/assets/cover.png docs/assets/cover.png --max-edge 1920 --colors 256` and target well under ~300 KB. Read the result back and eyeball it: gradients should show no visible banding, screenshot text inside the device frame should stay legible, brand colors shouldn't shift. If quantization visibly degrades it, raise `--colors` or drop straight to `--colors 0` (resize only, keep full color) and accept the larger file.
+5. **Commit the HTML source next to the PNG** (screenshots-as-code, same as every other asset in this skill) so the banner regenerates after a rebrand, a copy change, or a new screenshot.
+
+Restraint on "energy": motion cues (tilted device, speed streaks, small cards flying toward the frame) fit a product whose own actual behavior is about quick capture, tossing in fragments, or fast input — verify that metaphor against the codebase, don't invent one because it looks nice. For a calmer product (dashboard, CLI, internal tool), a static hero — screenshot + headline, no motion — is the safer default and should stay the default unless the user explicitly asks for more visual impact.
+
+This is one option among the visual-showcase choices in `readme-anatomy.md` §5 — pick composited hero **or** gallery table **or** plain single screenshot **or** Mermaid diagram, never several stacked as redundant heroes in the same README.
+
 ### CLI — scripted terminal demo
 
 Preference order:
@@ -110,7 +124,7 @@ Run from the repo root with the dev server on :5050.
 ## Asset hygiene
 
 - GIFs under ~5 MB (GitHub truncates patience, not files); reduce fps/width before cutting content.
-- PNGs: compress (`pngquant`/`oxipng` if available), width 1200-1600 for hero images.
+- PNGs: compress with `scripts/compress_image.py` (Pillow, falls back to `pngquant`/`oxipng` if present), width 1200-1600 for hero images, well under ~300 KB for composited banners.
 - Always relative paths (`docs/assets/x.png`), never absolute or branch-pinned raw URLs for same-repo assets.
 - Meaningful alt text on every image — accessibility and SEO.
 - Dark/light variants only when the project is UI-heavy: use `<picture>` with `prefers-color-scheme` sources.

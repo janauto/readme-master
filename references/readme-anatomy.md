@@ -43,9 +43,10 @@ Link only to destinations that exist. 3-6 items.
 
 ## 5. Visual showcase
 
-The first scroll must show, not tell. Options by asset availability:
+The first scroll must show, not tell. Options by asset availability — pick exactly one, never stack several as redundant heroes:
 
-- **Single hero**: one centered image/GIF right after the nav.
+- **Single hero**: one centered image/GIF right after the nav. Default choice for a plain real screenshot that already tells the story on its own.
+- **Composited hero banner**: one wide (~2:1–2.4:1) generated image combining brand mark, a one-clause headline, and the real captured screenshot inside a simple device frame. Reach for this when a bare screenshot undersells the product — small mobile UI lost on a wide page, no context for what you're looking at — and skip it for a project without a strong single-glance story, where forcing a dramatized banner around a plain dashboard reads as trying too hard. Recipe, sizing, and compression steps are in `visual-capture.md` → "Web UI — composited hero banner".
 - **Gallery table** (multiple screenshots): HTML table, 2-3 columns, each cell = linked image + one-line caption in `<sub>`:
 
 ```markdown

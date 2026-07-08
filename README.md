@@ -41,6 +41,7 @@ flowchart LR
 
 - **标准化结构** — 按 badge → 价值主张 → 居中导航 → 视觉展示 → 对比表格 → 分平台快速开始（可折叠）→ 文档索引 → 页脚的顺序组织内容，对标顶级开源项目首页。
 - **多级视觉方案** — 优先截取真实界面（Web 项目用 shot-scraper/Playwright，终端项目用 vhs），工具缺失时自动降级为 Mermaid 图，任何环节都不会卡住流程。
+- **可选的合成首图** — 项目有真实界面但一张裸截图不够抓眼时，把品牌标识、一句话价值主张和真实截图（永远是真实截图，不臆造界面）合成进一张宽版首图（`scripts/render_html.py` 渲染 + `scripts/compress_image.py` 压缩），源码随图一起提交。
 - **截图即代码** — 每张截图都附带生成它的 `.tape` / `shots.yml` 脚本，项目有变动时可一键重新生成。（上面的主图就是这么生成的，见 [`docs/assets/`](./docs/assets/)。）
 - **agent 部署验证** — 将新写的 README 和一个空目录交给全新子 agent；凡是它靠猜才能继续的地方，都会写回文档加以修正。
 - **诚实原则** — 不伪造 badge、star 数、功能、赞助商或链接；原 README 中的实质内容（决策、注意事项、数据、表格）在重写后必须保留。
@@ -173,6 +174,7 @@ flowchart LR
 
 - **README anatomy** — badges → value proposition → centered nav → visual showcase → comparison table → collapsible per-platform Quick Start → doc index → footer. Structure modeled on top-tier open-source front pages.
 - **Visuals with tiered fallback** — tries real capture first (shot-scraper/Playwright for web, vhs for terminals), degrades gracefully to Mermaid diagrams; a missing tool never blocks the run.
+- **Optional composited hero** — when a bare screenshot undersells a real UI, brand mark + one-clause value prop + the actual screenshot (never an invented one) get composited into one wide banner via `scripts/render_html.py` and compressed with `scripts/compress_image.py`; the HTML source ships next to the PNG.
 - **Screenshots as code** — every image ships with the `.tape`/`shots.yml` recipe that produced it, so visuals regenerate after the project changes. (The hero above is itself built this way — see [`docs/assets/`](./docs/assets/).)
 - **Agent-deploy verification** — a fresh subagent gets only the README and a clean directory; every point where it guesses gets written back into the doc.
 - **Honesty constraints** — no fabricated badges, stars, features, or links; the original README's substantive content (decisions, caveats, evidence, tables) must survive the rewrite.
